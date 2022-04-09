@@ -15,6 +15,8 @@ then
   sed -i 's/Server=127.0.0.1/Server=zabbix-server.local/' /etc/zabbix/zabbix_agentd.conf
   sed -i 's/ServerActive=127.0.0.1/ServerActive=zabbix-server.local/' /etc/zabbix/zabbix_agentd.conf
   sed -i 's/Hostname=Zabbix server/Hostname=zagent.local/' /etc/zabbix/zabbix_agentd.conf
+  firewall-cmd --permanent --add-port=10050/tcp --add-port=10050/udp
+  firewall-cmd --reload
 else
   echo "Please run this script by root"
 fi
