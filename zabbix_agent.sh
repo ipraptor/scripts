@@ -21,6 +21,8 @@ then
   firewall-cmd --reload
   # Selinux setting. ALERT! This config removes all zabbix agent actions from selinux control
   semanage permissive -a zabbix_agent_t
+  # Restart zabbix-agent
+  systemctl restart zabbix-agent
 else
   echo "Please run this script by root"
 fi
