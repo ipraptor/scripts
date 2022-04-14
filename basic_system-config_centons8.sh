@@ -1,7 +1,7 @@
 #!/bin/sh
-#=====================================
-#         Docker Install
-#=====================================
+#=========================================
+# Update, install utilites, open ssh port
+#=========================================
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin/:/root/bin
 
 wh=$(whoami)
