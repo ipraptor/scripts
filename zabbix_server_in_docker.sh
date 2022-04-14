@@ -12,7 +12,7 @@ wh=$(whoami)
 
 if [[ $wh = "root" ]]
 then
-  statusdocker=systemctl status docker |grep active |awk '{print $2}'
+  statusdocker=`systemctl status docker |grep active |awk '{print $2}'`
   
   if [[ $statusdocker = "inactive" ]]
   then
