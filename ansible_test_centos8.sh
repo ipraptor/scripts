@@ -1,3 +1,4 @@
+#!/bin/sh
 #===========================================================
 #	TESTING ANSIBLE AFTER INSTALL TO CENTOS8 or ROCKY LINUX
 #PalamarchukAA mrpalamarchuk93@gmail.com telegram:@ipraptor
