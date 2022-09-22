@@ -1,7 +1,7 @@
 ﻿###=========================================================
 ### Checking addresses by DNS and ICMP by a list from a file
 ### in script directory.
-### By IPraptor i@ipraptor.ru 20-09-22/1
+### By IPraptor i@ipraptor.ru 22-09-22/1
 ###=========================================================
 
 # Переменные путей
