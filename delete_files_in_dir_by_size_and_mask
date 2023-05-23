@@ -1,0 +1,24 @@
+#!/bin/sh
+#(ATTENTION - TO MAKE THE SCRIPT WORK UNCOMMENT STRING №18. РАССКОМЕНТИРУЙТЕ СТРОКУ №18 ДЛЯ РАБОТЫ СКРИПТА)
+#=====================================
+#   File cleanup by size and mask
+#=====================================
+# apalamarchuk@jet.su 22-03-23--02
+
+#export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin/:/root/bin:/usr/share/
+
+# Установить переменную DIR на директорию
+DIR=/opt/skdpu-nt/var/index/
+
+# Установить переменную SIZE на нужный размер для очистки файлов более указанного размера
+SIZE=300M
+
+# Поиск файлов в директории DIR, которые больше SIZE по маске *.glass
+# и передача вывода через команду xargs в команду rm для удаления
+#find $DIR -type f -size +$SIZE -name "*.glass" -print0 |xargs -0 rm -f
+
+# Вывести сообщение об успешном завершении скрипта
+echo "Файлы, размер которых превышал $SIZE в $DIR, были удалены."
+
+# Перезапуск демона индексации
+systemctl restart indexd
