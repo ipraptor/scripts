@@ -17,8 +17,8 @@ then
 # start install packet
 	dnf install -y htop tree mc vim nano wget curl net-tools lsof bash-completion
 # security
-	sed -i 's/#PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config	
-	systemctl restart sshd
+#	sed -i 's/#PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config	
+#	systemctl restart sshd
 # firewall
 	systemctl enable firewalld
 	systemctl start firewalld
