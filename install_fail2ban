@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Получение адреса для внесения в исключения
+read -p "Please write IP for create exclusion for fail2ban  --- " -r IPEXCLUSION
+
+# Установка пакетов
+  if [ -e '/etc/redhat-release' ]; then
+    ### RHEL ПОДОБНАЯ ОС
+    while ps uxaww | egrep '^yum|^dnf'; do echo 'waiting...'; sleep 3; done
+    
+    yum -y update
+    sudo yum install epel-release -y
+    sudo yum install fail2ban -y
+    systemctl enable fail2ban
+    systemctl start fail2ban
+    
+    # Создание файла конфигурации по умолчанию
+    sudo tee -a /etc/fail2ban/jail.d/default.conf <<EOL
+    [DEFAULT]
+    maxretry = 4
+    findtime = 480
+    bantime = 720
+    action = firewallcmd-ipset
+    ignoreip = 'IPEXCLUSION'
+    EOL
+
+    sudo tee -a /etc/fail2ban/jail.d/service.conf <<EOL
+    [ssh]
+    enabled = true
+    port = ssh
+    filter = sshd
+    action = firewallcmd-new[name=sshd, port=ssh, protocol=tcp]
+    backend = systemd #логи в системд
+    maxretry = 5
+    bantime = 86400 #сутки
+    EOL
+
+  else
+    ### DEBIAN подобная ОС
+    while ps uxaww | egrep '^apt|^apt-get|^dpkg'; do echo 'waiting...'; sleep 3; done
+
+    export DEBIAN_FRONTEND='noninteractive'
+    apt-get update && apt-get -y upgrade
+    systemctl enable fail2ban
+    systemctl start fail2ban
+    
+    # Создание файла конфигурации по умолчанию
+    sudo tee -a /etc/fail2ban/jail.d/default.conf <<EOL
+    [DEFAULT]
+    maxretry = 4
+    findtime = 480
+    bantime = 720
+    action = iptables
+    ignoreip = 'IPEXCLUSION'
+    EOL
+
+    sudo tee -a /etc/fail2ban/jail.d/service.conf <<EOL
+    [ssh]
+    enabled = true
+    port = ssh
+    filter = sshd
+    action = firewallcmd-new[name=sshd, port=ssh, protocol=tcp]
+    logpath = /var/log/auth.log
+    maxretry = 5
+    bantime = 86400 #сутки
+    EOL
+
+  fi
+
+# Перезапуск службы fail2ban
+sudo systemctl restart fail2ban
+
+echo "Fail2Ban успешно установлен и настроен для фильтрации протокола SSH."
