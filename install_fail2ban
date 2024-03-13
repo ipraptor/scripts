@@ -19,7 +19,7 @@ maxretry = 4
 findtime = 480
 bantime = 720
 action = firewallcmd-ipset
-ignoreip = ${IPEXCLUSION}$
+ignoreip = ${IPEXCLUSION}
 EOL
 sudo tee -a /etc/fail2ban/jail.d/service.conf <<EOL
 [ssh]
@@ -45,7 +45,7 @@ maxretry = 4
 findtime = 480
 bantime = 720
 action = iptables
-ignoreip = ${IPEXCLUSION}$
+ignoreip = ${IPEXCLUSION}
 EOL
 sudo tee -a /etc/fail2ban/jail.d/service.conf <<EOL
 [ssh]
